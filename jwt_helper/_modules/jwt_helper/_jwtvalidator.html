@@ -339,11 +339,10 @@
   <h1>Source code for jwt_helper._jwtvalidator</h1><div class="highlight"><pre>
 <span></span><code><span class="kn">import</span> <span class="nn">jwt</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span><span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 
 <span class="kn">from</span> <span class="nn">._issuer</span> <span class="kn">import</span> <span class="n">Issuer</span>
-<span class="kn">from</span> <span class="nn">._signmethods</span> <span class="kn">import</span> <span class="n">SignMethod</span>
+
 
 <div class="viewcode-block" id="JWTValidator"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JWTValidator</span><span class="p">:</span>
@@ -352,6 +351,7 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        issuers (dict): A dictionary storing our Trusted Issuers and their methods and secrets</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">issuers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Issuer</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="JWTValidator.check_token"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.check_token">[docs]</a>    <span class="k">def</span> <span class="nf">check_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
