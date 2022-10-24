@@ -390,7 +390,7 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="JWTValidator.get_jwt_as_dict_untrusted"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.get_jwt_as_dict_untrusted">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_jwt_as_dict_untrusted</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_jwt_as_dict_untrusted</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Returns the content of the JWT without validating its signature.</span>
 
 <span class="sd">        Args:</span>
@@ -404,11 +404,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;headers&quot;</span><span class="p">:</span><span class="n">jwt</span><span class="o">.</span><span class="n">get_unverified_header</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">),</span>
-            <span class="s2">&quot;payload&quot;</span><span class="p">:</span><span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verify_signature&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+            <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="n">jwt</span><span class="o">.</span><span class="n">get_unverified_header</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">),</span>
+            <span class="s2">&quot;payload&quot;</span><span class="p">:</span> <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verify_signature&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}),</span>
         <span class="p">}</span></div>
 
-<div class="viewcode-block" id="JWTValidator.get_jwt_as_dict"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.get_jwt_as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_jwt_as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">jwt_token</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="JWTValidator.get_jwt_as_dict"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.get_jwt_as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_jwt_as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jwt_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Gets JWT Content as dict but verifies the JWT itself</span>
 
 <span class="sd">        Args:</span>
@@ -424,8 +424,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify_jwt</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;JWT Invalid&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">JWTValidator</span><span class="o">.</span><span class="n">get_jwt_as_dict_untrusted</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">)</span> </div>
-
+        <span class="k">return</span> <span class="n">JWTValidator</span><span class="o">.</span><span class="n">get_jwt_as_dict_untrusted</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JWTValidator.remove_issuer"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.remove_issuer">[docs]</a>    <span class="k">def</span> <span class="nf">remove_issuer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">issuer</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Remove and issuer (by name) from our dictionary of trusted issuers</span>
