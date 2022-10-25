@@ -13,7 +13,7 @@
     
     
       
-        <title>Welcome to py_auth_micro’s documentation! - py_auth_micro  documentation</title>
+        <title>General - py_auth_micro  documentation</title>
       
     
     
@@ -95,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to py_auth_micro’s documentation!
+              General
             
           </span>
         </div>
@@ -241,7 +241,7 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       <a href="#" class="md-nav__link md-nav__link--active">
-        <span class="md-ellipsis">Welcome to py_<wbr>auth_<wbr>micro’s documentation!</span>
+        <span class="md-ellipsis">General</span>
       </a>
       
     </li>
@@ -254,20 +254,12 @@
 
   
   
-    
-  
-    
   
   
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      <a href="#indices-and-tables" class="md-nav__link md-nav__link--active">
-        <span class="md-ellipsis">Indices and tables</span>
+    <li class="md-nav__item">
+      <a href="genindex.html" class="md-nav__link">
+        <span class="md-ellipsis">Index</span>
       </a>
-      
     </li>
   
 
@@ -352,15 +344,11 @@
 
 
 
-  <h1 id="welcome-to-py-auth-micro-s-documentation">Welcome to py_auth_micro’s documentation!<a class="headerlink" href="#welcome-to-py-auth-micro-s-documentation" title="Permalink to this heading">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<h1 id="indices-and-tables">Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+  <h1 id="general">General<a class="headerlink" href="#general" title="Permalink to this heading">¶</a></h1>
+<p><cite>py_auth_micro</cite> is a small identity provider library which can use an LDAP/AD as upstream Identity Provider and can also store Users Localy.</p>
+<p>The Authentication and Authorization is done via <cite>ID-Tokens</cite> and <cite>Access-Tokens</cite>. The <cite>ID-Tokens</cite> are given out after a User successfully logged in.
+With this <cite>ID-Token</cite> a User can request an <cite>Access-Token</cite> which he can send to other (Micro-)Services to gain access According to his Permissions.</p>
+<p>The Tokens are <cite>JWT</cite> Tokens which can either be signed with an symetric <cite>HMAC</cite>-Secret or with an <cite>RSA</cite>-Key.</p>
 
 
 
@@ -395,21 +383,6 @@
           </div>
         </a>
       
-      
-        
-        <a href="getting_started.html" class="md-footer__link md-footer__link--next" aria-label="Next: Getting started" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Getting started
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
       
     </nav>
   

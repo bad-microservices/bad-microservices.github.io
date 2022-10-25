@@ -234,7 +234,7 @@
   
     <li class="md-nav__item">
       <a href="../../../index.html" class="md-nav__link">
-        <span class="md-ellipsis">Welcome to py_<wbr>auth_<wbr>micro’s documentation!</span>
+        <span class="md-ellipsis">General</span>
       </a>
     </li>
   
@@ -249,8 +249,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../index.html#indices-and-tables" class="md-nav__link">
-        <span class="md-ellipsis">Indices and tables</span>
+      <a href="../../../genindex.html" class="md-nav__link">
+        <span class="md-ellipsis">Index</span>
       </a>
     </li>
   
@@ -351,6 +351,15 @@
 
 
 <div class="viewcode-block" id="User"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Models.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Model Representing a User</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        username (str): Name of the User.</span>
+<span class="sd">        password_hash (str, optional): Passwordhash for local Users</span>
+<span class="sd">        auth_type (AuthSource): How to authenticate the User.</span>
+<span class="sd">        email (str): Email address of the User.</span>
+<span class="sd">        activated (bool): User verified his email Address.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Username&quot;</span>
@@ -399,13 +408,24 @@
 
     <span class="n">token</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">ReverseRelation</span><span class="p">[</span><span class="n">Token</span><span class="p">]</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_id_token</span><span class="p">(</span>
+<div class="viewcode-block" id="User.create_id_token"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Models.User.create_id_token">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_id_token</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">jwt_encoder</span><span class="p">:</span> <span class="n">JWTEncoder</span><span class="p">,</span>
         <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">,</span>
         <span class="n">vhost</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-        <span class="n">ip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Token&quot;</span><span class="p">:</span>
+        <span class="n">ip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Token</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Creates a Token instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            jwt_encoder (JWTEncoder): JWTEncoder instance which specifies the SigingMethod.</span>
+<span class="sd">            app_config (AppConfig): AppConfig specifying the Lifetime of the Token.</span>
+<span class="sd">            vhost (str, optional): For which VHost the Token is valid for. Defaults to &quot;/&quot;.</span>
+<span class="sd">            ip (str, optional): IP which the Token is bound to. Defaults to `*`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Token: _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check if old Token exists</span>
         <span class="n">token</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Token</span><span class="o">.</span><span class="n">get_or_none</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
 
@@ -420,17 +440,22 @@
         <span class="n">token</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Token</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span>
-            <span class="n">sign_method</span><span class="o">=</span><span class="n">jwt_encoder</span><span class="o">.</span><span class="n">default_sign_method</span><span class="p">,</span>
+            <span class="n">sign_method</span><span class="o">=</span><span class="n">jwt_encoder</span><span class="o">.</span><span class="n">signmethod</span><span class="p">,</span>
             <span class="n">vhost</span><span class="o">=</span><span class="n">vhost</span><span class="p">,</span>
             <span class="n">valid_until</span><span class="o">=</span><span class="n">valid_until</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">token</span>
+        <span class="k">return</span> <span class="n">token</span></div>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">revoke_id_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="User.revoke_id_token"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Models.User.revoke_id_token">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">revoke_id_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Revokes the ID-Token by deleting the Database Entity Representing it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: The Token got revoked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span></div>
