@@ -350,6 +350,7 @@
 <span class="sd">        signmethod (SignMethod): The Algorithm used to create the JWT.</span>
 <span class="sd">        secret (bytes | PRIVATE_KEY_TYPES | str): The secret used to create the JWT signature</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">issuer</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">signmethod</span><span class="p">:</span> <span class="n">SignMethod</span>
     <span class="n">secret</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">PRIVATE_KEY_TYPES</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
@@ -374,16 +375,14 @@
         <span class="p">)</span>
 
         <span class="n">jwt_headers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;iss&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">issuer</span><span class="p">,</span>
-                <span class="s2">&quot;iat&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
-                <span class="s2">&quot;nbf&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
-                <span class="s2">&quot;exp&quot;</span><span class="p">:</span> <span class="n">valid_until</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
-            <span class="p">}</span>
+            <span class="s2">&quot;iss&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">issuer</span><span class="p">,</span>
+            <span class="s2">&quot;iat&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
+            <span class="s2">&quot;nbf&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
+            <span class="s2">&quot;exp&quot;</span><span class="p">:</span> <span class="n">valid_until</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
         <span class="p">}</span>
 
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;iss&quot;</span><span class="p">,</span><span class="s2">&quot;iat&quot;</span><span class="p">,</span><span class="s2">&quot;nbf&quot;</span><span class="p">,</span><span class="s2">&quot;exp&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;iss&quot;</span><span class="p">,</span> <span class="s2">&quot;iat&quot;</span><span class="p">,</span> <span class="s2">&quot;nbf&quot;</span><span class="p">,</span> <span class="s2">&quot;exp&quot;</span><span class="p">]:</span>
                 <span class="n">jwt_headers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="n">token</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
