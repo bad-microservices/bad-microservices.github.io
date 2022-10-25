@@ -389,13 +389,13 @@
             <span class="n">issuer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">issuers</span><span class="p">[</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;iss&quot;</span><span class="p">]]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tokens Issuer is not Trusted&quot;</span><span class="p">)</span>
-
+        
         <span class="c1"># validate token</span>
         <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
             <span class="n">token</span><span class="p">,</span>
             <span class="n">key</span><span class="o">=</span><span class="n">issuer</span><span class="o">.</span><span class="n">secret</span><span class="p">,</span>
             <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">issuer</span><span class="o">.</span><span class="n">methods</span><span class="p">],</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;require&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;exp&quot;</span><span class="p">,</span> <span class="s2">&quot;iss&quot;</span><span class="p">]},</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verify_exp&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">True</span></div>
