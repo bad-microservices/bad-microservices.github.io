@@ -348,7 +348,7 @@
 
     <span class="n">issuers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Issuer</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
-<div class="viewcode-block" id="JWTValidator.add_issuer"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.add_issuer">[docs]</a>    <span class="k">def</span> <span class="nf">add_issuer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">issuer</span><span class="p">:</span><span class="n">Issuer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="JWTValidator.add_issuer"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.add_issuer">[docs]</a>    <span class="k">def</span> <span class="nf">add_issuer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">issuer</span><span class="p">:</span> <span class="n">Issuer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Adds an issuer to the list of trusted issuers</span>
 
 <span class="sd">        Args:</span>
@@ -389,7 +389,7 @@
             <span class="n">issuer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">issuers</span><span class="p">[</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;iss&quot;</span><span class="p">]]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tokens Issuer is not Trusted&quot;</span><span class="p">)</span>
-        
+
         <span class="c1"># validate token</span>
         <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
             <span class="n">token</span><span class="p">,</span>
