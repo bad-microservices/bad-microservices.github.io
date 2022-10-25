@@ -348,6 +348,23 @@
 
     <span class="n">issuers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Issuer</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
+<div class="viewcode-block" id="JWTValidator.add_issuer"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.add_issuer">[docs]</a>    <span class="k">def</span> <span class="nf">add_issuer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">issuer</span><span class="p">:</span><span class="n">Issuer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Adds an issuer to the list of trusted issuers</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            issuer (Issuer): the issuer we want to add to our list</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: False if the issuer name is already known to us</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">issuers</span><span class="p">[</span><span class="n">issuer</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">issuers</span><span class="p">[</span><span class="n">issuer</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">issuer</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
 <div class="viewcode-block" id="JWTValidator.verify_jwt"><a class="viewcode-back" href="../../api_reference.html#jwt_helper.JWTValidator.verify_jwt">[docs]</a>    <span class="k">def</span> <span class="nf">verify_jwt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Function to check if a token is valid</span>
 
