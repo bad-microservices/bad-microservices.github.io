@@ -351,6 +351,16 @@
 
 <div class="viewcode-block" id="LDAPHelper"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Core.LDAPHelper">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">LDAPHelper</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class which helps interacting with an LDAP Server</span>
+
+<span class="sd">    Warning:</span>
+<span class="sd">        While instantiating this class it will bin against the LDAP!</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        config (LDAPConfig): The Configuration to connect to the LDAP.</span>
+<span class="sd">        username (str): Name of the User we want to log in with.</span>
+<span class="sd">        password (str): Password of the user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">config</span><span class="p">:</span> <span class="n">LDAPConfig</span>
     <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
@@ -359,6 +369,8 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extracts the Users email after he sucessfully logged in (if he needs to be created in the Database)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_userinfo</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -401,21 +413,30 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_get_user_info</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">get_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="LDAPHelper.get_groups"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Core.LDAPHelper.get_groups">[docs]</a>    <span class="k">def</span> <span class="nf">get_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This function will return a list of all relevant Groups.</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of Usergroups</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">valid_groups</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_userinfo</span><span class="p">[</span><span class="s2">&quot;groups&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">group</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">groups_prefix</span><span class="p">):</span>
                 <span class="n">valid_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">groups_prefix</span><span class="p">)</span> <span class="p">:])</span>
 
-        <span class="k">return</span> <span class="n">valid_groups</span>
+        <span class="k">return</span> <span class="n">valid_groups</span></div>
 
-    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="LDAPHelper.login"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Core.LDAPHelper.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This Function checks if the User has the correct Usergroup to sign in.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the user is allowed to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_userinfo</span><span class="p">[</span><span class="s2">&quot;groups&quot;</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
-        <span class="k">return</span> <span class="kc">False</span></div>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
 </code></pre></div>
 
 
