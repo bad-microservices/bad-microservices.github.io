@@ -340,7 +340,7 @@
   </a>
 
 <h1>Source code for py_auth_micro.Models._user</h1><div class="highlight"><pre>
-<span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -429,16 +429,21 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Token: _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;creating token for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># check if old Token exists</span>
         <span class="n">token</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Token</span><span class="o">.</span><span class="n">get_or_none</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
 
         <span class="c1"># delete old token</span>
         <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deleting old Token with id: </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">token_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">await</span> <span class="n">token</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 
         <span class="n">valid_until</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span>
             <span class="n">tz</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span>
         <span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">app_config</span><span class="o">.</span><span class="n">id_token_valid_time</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;creating token for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2"> with following specs:</span><span class="se">\n</span><span class="s2">ip: </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="se">\n</span><span class="s2">method: </span><span class="si">{</span><span class="n">jwt_encoder</span><span class="o">.</span><span class="n">signmethod</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">vhost: </span><span class="si">{</span><span class="n">vhost</span><span class="si">}</span><span class="se">\n</span><span class="s2">vhost: </span><span class="si">{</span><span class="n">vhost</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">token</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Token</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
@@ -456,6 +461,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: The Token got revoked.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;revoking ID-Token for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">True</span></div>

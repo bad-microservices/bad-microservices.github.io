@@ -340,7 +340,8 @@
   </a>
 
 <h1>Source code for py_auth_micro.Models._token</h1><div class="highlight"><pre>
-<span></span><code><span class="kn">import</span> <span class="nn">datetime</span>
+<span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">from</span> <span class="nn">tortoise</span> <span class="kn">import</span> <span class="n">fields</span>
 <span class="kn">from</span> <span class="nn">tortoise.models</span> <span class="kn">import</span> <span class="n">Model</span>
@@ -418,7 +419,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The ID-JWT</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;creating ID-Token JWT with id: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">token_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">usergroups</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">token</span> <span class="o">=</span> <span class="n">jwt_encoder</span><span class="o">.</span><span class="n">create_jwt</span><span class="p">(</span>
@@ -431,7 +433,7 @@
             <span class="p">{</span><span class="s2">&quot;groups&quot;</span><span class="p">:</span> <span class="n">usergroups</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)},</span>
             <span class="n">app_cfg</span><span class="o">.</span><span class="n">id_token_valid_time</span><span class="p">,</span>
         <span class="p">)</span>
-
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;token: </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">token</span></div>
 
 <div class="viewcode-block" id="Token.verify_id_jwt"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.Models.Token.verify_id_jwt">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -456,10 +458,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Token: the matched Database Token instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;verifying ID-Token from </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;token: </span><span class="si">{</span><span class="n">id_jwt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">token_content</span> <span class="o">=</span> <span class="n">jwt_validator</span><span class="o">.</span><span class="n">get_jwt_as_dict</span><span class="p">(</span><span class="n">id_jwt</span><span class="p">)</span>
 
         <span class="n">token_header</span> <span class="o">=</span> <span class="n">token_content</span><span class="p">[</span><span class="s2">&quot;headers&quot;</span><span class="p">]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;token-headers: </span><span class="si">{</span><span class="n">token_header</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">token_header</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;ID-Token&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not an ID-Token&quot;</span><span class="p">)</span>
@@ -471,12 +477,15 @@
         <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span>
             <span class="n">token_header</span><span class="p">[</span><span class="s2">&quot;aud&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ip</span> <span class="ow">or</span> <span class="n">token_header</span><span class="p">[</span><span class="s2">&quot;aud&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">token</span><span class="o">.</span><span class="n">ip</span>
         <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Token IP mismatch!&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Token IP missmatch!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Token IP missmatch!&quot;</span><span class="p">)</span>
 
         <span class="c1"># check vhost</span>
         <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">vhost</span> <span class="o">!=</span> <span class="n">token_header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;vhost&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VHost missmatch!&quot;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;VHost missmatch!&quot;</span><span class="p">)</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Token is valid&quot;</span><span class="p">)</span>
         <span class="c1"># return the Token from the Database</span>
         <span class="k">return</span> <span class="n">token</span></div>
 
@@ -493,9 +502,10 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: a JWT Token</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;creating Access-Token&quot;</span><span class="p">)</span>
         <span class="n">usergroups</span> <span class="o">=</span> <span class="k">await</span> <span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Token Groups: </span><span class="si">{</span><span class="n">usergroups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">jwt_encoder</span><span class="o">.</span><span class="n">create_jwt</span><span class="p">(</span>
             <span class="p">{</span>
                 <span class="s2">&quot;aud&quot;</span><span class="p">:</span> <span class="n">usergroups</span><span class="p">,</span>
