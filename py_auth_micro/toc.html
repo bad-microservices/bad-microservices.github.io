@@ -354,7 +354,44 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#config-submodule">Config Submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.Config">Config Submodule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig">py_auth_micro.Config.LDAPConfig</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig-variables">Variables</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.address">address</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.base_dn">base_dn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.group">group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.groups_prefix">groups_prefix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.domain">domain</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.LDAPConfig.__init__.ca_file">ca_file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig">py_auth_micro.Config.DBConfig</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig-variables">Variables</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.__init__.database">database</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.__init__.user">user</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.__init__.host">host</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.__init__.port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.__init__.ca_file">ca_file</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.sslcontext">sslcontext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.connection_string">connection_string</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.connection_string-type">Type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.to_dict">to_dict</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.to_dict-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.to_dict-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.DBConfig.to_dict-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Config.AppConfig">py_auth_micro.Config.AppConfig</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.Core">Core Submodule</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Core.AuthSource">py_auth_micro.Core.AuthSource</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Core.AuthSource.LOCAL">LOCAL</a></li>
@@ -383,8 +420,48 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#exceptions-submodule">Exceptions Submodule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#loginhandler-submodule">LoginHandler Submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.Exceptions">Exceptions Submodule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Exceptions.AlreadyExists">py_auth_micro.Exceptions.AlreadyExists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Exceptions.PermissionError">py_auth_micro.Exceptions.PermissionError</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.LoginHandler">LoginHandler Submodule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login">py_auth_micro.LoginHandler.login</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login-parameters">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login.username">username</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login.password">password</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login.ldap_config">ldap_config</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login-raises">Raises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login-returns">Returns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.login-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginBaseClass">py_auth_micro.LoginHandler.LoginBaseClass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLDAP">py_auth_micro.LoginHandler.LoginLDAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLDAP-keyword-arguments">Keyword Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLDAP.login">login</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLDAP.login-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLDAP.login-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal">py_auth_micro.LoginHandler.LoginLocal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal-variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal-returns">Returns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal-return-type">Return type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal.login">login</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal.login-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginLocal.login-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.LoginHandler.LoginKerberos">py_auth_micro.LoginHandler.LoginKerberos</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.Models">Models Submodule</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.Models.Token">py_auth_micro.Models.Token</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.Models.Token-variables">Variables</a></li>
@@ -430,7 +507,122 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#workflows-submodule">WorkFlows Submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-py_auth_micro.WorkFlows">WorkFlows Submodule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow">py_auth_micro.WorkFlows.UserWorkflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow-variables">Variables</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.__init__.jwt_validator">jwt_validator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.__init__.app_cfg">app_cfg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all">get_all</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.register_user">register_user</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.register_user-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.register_user-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.register_user-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.register_user-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_user">get_user</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_user-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_user-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_user-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user">admin_create_user</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user">delete_user</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user">change_user</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow">py_auth_micro.WorkFlows.SessionWorkflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow-variables">Variables</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.__init__.ldap_cfg">ldap_cfg</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.__init__.jwt_encoder">jwt_encoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.__init__.jwt_validator">jwt_validator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.__init__.app_cfg">app_cfg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.login">login</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.login-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.login-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.login-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.logout">logout</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.logout-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.logout-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.logout-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.get_access_token">get_access_token</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.get_access_token-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.get_access_token-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.SessionWorkflow.get_access_token-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow">py_auth_micro.WorkFlows.GroupWorkflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow-variables">Variables</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.__init__.jwt_validator">jwt_validator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.__init__.app_cfg">app_cfg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group">create_group</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group">delete_group</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group">add_user_to_group</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group-return-type">Return type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group">remove_user_from_group</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group-parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group-raises">Raises</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group-returns">Returns</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group-return-type">Return type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
