@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../../../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../../../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -34,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -352,7 +350,7 @@
 
 <div class="viewcode-block" id="GroupWorkflow"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">GroupWorkflow</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;This Helper Class contains all interactions related to Groups and Group Memberships.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This Helper Class contains all interactions related to Groups and Group Memberships.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        jwt_validator (JWTValidator): JWTValidator used to check Tokens with.</span>
@@ -362,8 +360,10 @@
     <span class="n">jwt_validator</span><span class="p">:</span> <span class="n">JWTValidator</span>
     <span class="n">app_cfg</span><span class="p">:</span> <span class="n">AppConfig</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_perm_and_name_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Group</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Will check the Permissions of the access Token and if the group already exists.</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_perm_and_name_check</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Group</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Will check the Permissions of the access Token and if the group already exists.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access Token of the Request Sender.</span>
@@ -374,7 +374,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Optional[Group]: If the Group exists return it. None if it does not exist.</span>
-<span class="sd">        &quot;&quot;&quot;</span>       
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">is_admin</span> <span class="o">=</span> <span class="n">_get_info_from_token</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">jwt_validator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_cfg</span><span class="p">,</span> <span class="n">access_token</span>
         <span class="p">)</span>
@@ -389,8 +389,32 @@
 
         <span class="k">return</span> <span class="n">group</span>
 
+<div class="viewcode-block" id="GroupWorkflow.get_groups"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.get_groups">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This Function returns a list of all Groups</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            access_token (str): Access-Token of the Requesting User.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: `resp_data` contains the key groups which is a list of all groups.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jwt_validator</span><span class="o">.</span><span class="n">verify_jwt</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
+        <span class="n">groups_raw</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Group</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups_raw</span><span class="p">:</span>
+            <span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">status_code</span> <span class="o">=</span> <span class="mi">204</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status_code</span> <span class="o">=</span> <span class="mi">200</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="n">status_code</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;groups&quot;</span><span class="p">:</span> <span class="n">groups</span><span class="p">}}</span></div>
+
 <div class="viewcode-block" id="GroupWorkflow.create_group"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.create_group">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Creates a Group with the specified Name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a Group with the specified Name</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access-Token of the Requesting User.</span>
@@ -400,7 +424,7 @@
 <span class="sd">            ValueError: Group already exists.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: `True` if the Group was created, `False` could not be created.</span>
+<span class="sd">            dict: `resp_code` = 200 action was successfull, `resp_code` = 500 if it was not</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check groups Existence and Requesting Users Permission</span>
         <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perm_and_name_check</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">group_name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -409,12 +433,15 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">Group</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not create group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;created group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}}</span></div>
 
 <div class="viewcode-block" id="GroupWorkflow.delete_group"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.delete_group">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Deletes the specified Group.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deletes the specified Group.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access-Token of the Requesting User.</span>
@@ -424,7 +451,7 @@
 <span class="sd">            ValueError: Group does not exist</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: `True` Group got deleted, `False` Group could not get deleted.</span>
+<span class="sd">            dict: `resp_code` = 200 action was successfull, `resp_code` = 500 if it was not</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check groups Existence and Requesting Users Permission</span>
         <span class="n">group</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perm_and_name_check</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">group_name</span><span class="p">)</span>
@@ -435,14 +462,17 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">group</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not delete group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;deleted group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}}</span></div>
 
 <div class="viewcode-block" id="GroupWorkflow.add_user_to_group"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.add_user_to_group">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">add_user_to_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Adds a User to a group</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a User to a group</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access Token of the Requesting User.</span>
@@ -453,7 +483,7 @@
 <span class="sd">            ValueError: Group does not exist.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: `True` Added User Successfully. `False` didn&#39;t add User to Group.</span>
+<span class="sd">            dict: `resp_code` = 200 action was successfull, `resp_code` = 500 if it was not</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># check groups Existence and Requesting Users Permission</span>
@@ -467,14 +497,22 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">group</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not add user </span><span class="si">{</span><span class="n">user_name</span><span class="si">}</span><span class="s2"> to group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;added user </span><span class="si">{</span><span class="n">user_name</span><span class="si">}</span><span class="s2"> to group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">}</span></div>
 
 <div class="viewcode-block" id="GroupWorkflow.remove_user_from_group"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.GroupWorkflow.remove_user_from_group">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">remove_user_from_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Removes a User from a group</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes a User from a group</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access Token of the Requesting User.</span>
@@ -485,7 +523,7 @@
 <span class="sd">            ValueError: Group does not exist.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: `True` Removed User Successfully. `False` didn&#39;t remove User from Group.</span>
+<span class="sd">            dict: `resp_code` = 200 action was successfull, `resp_code` = 500 if it was not</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># check groups Existence and Requesting Users Permission</span>
@@ -499,9 +537,17 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">group</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not remove user </span><span class="si">{</span><span class="n">user_name</span><span class="si">}</span><span class="s2"> to group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;removed user </span><span class="si">{</span><span class="n">user_name</span><span class="si">}</span><span class="s2"> to group </span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">}</span></div></div>
 </code></pre></div>
 
 
@@ -538,7 +584,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    6.0.0b2.
+    6.1.3.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -578,9 +624,8 @@
     
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "Github Pages", "version": "https://bad-microservices.github.io/py_auth_micro"}], "versionPath": null}}</script>
     
-    
-      <script src="../../../_static/javascripts/bundle.309d5c42.min.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
     

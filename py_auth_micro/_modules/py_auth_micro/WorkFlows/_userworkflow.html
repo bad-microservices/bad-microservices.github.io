@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../../../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../../../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -34,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -349,7 +347,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">..Models</span> <span class="kn">import</span> <span class="n">User</span>
-<span class="kn">from</span> <span class="nn">..Exceptions</span> <span class="kn">import</span> <span class="n">AlreadyExists</span><span class="p">,</span> <span class="ne">PermissionError</span>
+<span class="kn">from</span> <span class="nn">..Exceptions</span> <span class="kn">import</span> <span class="n">AlreadyExists</span>
 <span class="kn">from</span> <span class="nn">..Config</span> <span class="kn">import</span> <span class="n">AppConfig</span>
 <span class="kn">from</span> <span class="nn">..Core</span> <span class="kn">import</span> <span class="n">AuthSource</span>
 
@@ -358,7 +356,7 @@
 
 <div class="viewcode-block" id="UserWorkflow"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">UserWorkflow</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;This Helper Class contains all interactions related to Users.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This Helper Class contains all interactions related to Users.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        jwt_validator (JWTValidator): JWTValidator used to check Tokens with.</span>
@@ -369,7 +367,7 @@
     <span class="n">app_cfg</span><span class="p">:</span> <span class="n">AppConfig</span>
 
 <div class="viewcode-block" id="UserWorkflow.get_all"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_all">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a list of all Usernames.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of all Usernames.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Access Token of the Requesting User</span>
@@ -378,19 +376,19 @@
 <span class="sd">            PermissionError: If the Access Token is invalid</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str] : A list of all known Users</span>
+<span class="sd">            dict : A list of all known Users</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">jwt_validator</span><span class="o">.</span><span class="n">verify_jwt</span><span class="p">(</span><span class="n">access_token</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="s2">&quot;Not Authorized&quot;</span><span class="p">)</span>
 
         <span class="n">users</span> <span class="o">=</span> <span class="k">await</span> <span class="n">User</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;users&quot;</span><span class="p">:</span> <span class="n">users</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;users&quot;</span><span class="p">:</span> <span class="n">users</span><span class="p">}}</span></div>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_create_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">activated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Creates a Local User with the specified Values.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a Local User with the specified Values.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            username (str): Username.</span>
@@ -444,7 +442,7 @@
         <span class="n">password_confirm</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This Function is for User Registration</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This Function is for User Registration</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            username (str): Username.</span>
@@ -456,20 +454,26 @@
 <span class="sd">            ValueError: some Values do not match the specified Regexes or the password confirmation does not match the Password.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: :code:`{&quot;success&quot;:True}` if operation was successfull</span>
+<span class="sd">            dict: `resp_code` 200 if operation was successfull</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">password</span> <span class="o">!=</span> <span class="n">password_confirm</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;passwords do not match&quot;</span><span class="p">)</span>
 
+        <span class="n">user_created</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_user</span><span class="p">(</span>
+            <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_cfg</span><span class="o">.</span><span class="n">auto_activate_accounts</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user_created</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;created user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}}</span>
+
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_user</span><span class="p">(</span>
-                <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_cfg</span><span class="o">.</span><span class="n">auto_activate_accounts</span>
-            <span class="p">)</span>
+            <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+            <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not create user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="UserWorkflow.get_user"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.get_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a dictionary containing Userinformation.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary containing Userinformation.</span>
 
 <span class="sd">        This Function returns more Information if you are the User you are requesting.</span>
 <span class="sd">        Even more Info is provided if you are an Administrator</span>
@@ -523,12 +527,12 @@
                 <span class="p">}</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">user_dict</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="n">user_dict</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="UserWorkflow.admin_create_user"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.admin_create_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">admin_create_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Lets an administrator create an User</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Lets an administrator create an User</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            username (str): Username of the new User.</span>
@@ -549,10 +553,18 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_admin</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="s2">&quot;Missing Permissions&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="kc">True</span><span class="p">)}</span></div>
+        <span class="n">created</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">created</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;created user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}}</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+            <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;could not create user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">}</span></div>
 
 <div class="viewcode-block" id="UserWorkflow.delete_user"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.delete_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;A user can delete himself or an Administrator can do so as well</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A user can delete himself or an Administrator can do so as well</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            access_token (str): Token of the requesting user.</span>
@@ -574,7 +586,7 @@
 
         <span class="n">user</span> <span class="o">=</span> <span class="k">await</span> <span class="n">User</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
         <span class="k">await</span> <span class="n">user</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;deleted user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}}</span></div>
 
 <div class="viewcode-block" id="UserWorkflow.change_user"><a class="viewcode-back" href="../../../api_reference.html#py_auth_micro.WorkFlows.UserWorkflow.change_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">change_user</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -584,7 +596,7 @@
         <span class="n">email</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">activated</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Used to change an User</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Used to change a User</span>
 
 <span class="sd">        For Ldap authenticated Users you ca only change the Activation state.</span>
 <span class="sd">        The activation State can only be changed by an Administrator.</span>
@@ -648,7 +660,10 @@
 
         <span class="k">await</span> <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span></div></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;resp_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s2">&quot;resp_data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;changed data for user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">}</span></div></div>
 </code></pre></div>
 
 
@@ -685,7 +700,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    6.0.0b2.
+    6.1.3.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -725,9 +740,8 @@
     
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "Github Pages", "version": "https://bad-microservices.github.io/py_auth_micro"}], "versionPath": null}}</script>
     
-    
-      <script src="../../../_static/javascripts/bundle.309d5c42.min.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
     
