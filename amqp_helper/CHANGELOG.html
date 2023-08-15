@@ -603,7 +603,14 @@
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <h2 id="id1">0.0.13<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">AMQPClient</span></code> hase new Function <code class="code docutils literal notranslate"><span class="pre">close()</span></code> to close the AMQP connection</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">AMQPClient</span></code> has new Function <code class="code docutils literal notranslate"><span class="pre">close()</span></code> to close the AMQP connection</p></li>
+<li><dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">AMQPLogHandler</span></code> got reworked to work without throwing an error</dt><dd><ul>
+<li><p>it will only log everything which got transferred to the log process while the parent process was running</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <h2 id="id2">0.0.12<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
