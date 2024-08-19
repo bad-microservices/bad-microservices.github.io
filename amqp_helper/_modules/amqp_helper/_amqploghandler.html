@@ -452,7 +452,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
         <span class="c1"># kill this process because somehow any other way does not work?</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="k">await</span> <span class="n">aio_pika</span><span class="o">.</span><span class="n">connect_robust</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">aio_pika</span><span class="p">())</span>
@@ -517,10 +517,11 @@
         <span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">process</span><span class="p">),</span>
         <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">processName</span><span class="p">),</span>
     <span class="p">}</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">new_dict</span><span class="p">[</span><span class="s2">&quot;exception_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_tb</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">exc_info</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-        <span class="k">pass</span>
+    <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">exc_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_dict</span><span class="p">[</span><span class="s2">&quot;exception_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_tb</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">exc_info</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
 
     <span class="k">return</span> <span class="n">new_dict</span>
 </code></pre></div>
